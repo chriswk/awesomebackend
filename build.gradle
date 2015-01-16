@@ -13,3 +13,7 @@ dependencies {
     compile "org.apache.logging.log4j:log4j-core:2.1.0"
     testCompile "junit:junit:4.11"
 }
+
+task wrapper(type: Wrapper) {
+  gradleVersion = "2.2.1"
+}
