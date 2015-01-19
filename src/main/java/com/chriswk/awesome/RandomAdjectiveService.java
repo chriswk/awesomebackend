@@ -29,6 +29,11 @@ public class RandomAdjectiveService {
     public Observable<String> adjectives() {
         Random r = new Random();
         final int size = adjectives.size();
-        return Observable.interval(500, TimeUnit.MILLISECONDS).map((counter) -> adjectives.get(r.nextInt(size)));
+        return Observable.create((observer) -> {
+            while(!observer.isUnsubscribed()) {
+                observer.onNext(adjectives.get(r.nextInt(size)));
+            }
+            observer.onCompleted();
+        });
     }
 }

@@ -1,5 +1,7 @@
 package com.chriswk.awesome;
 
+import java.util.concurrent.TimeUnit;
+
 import rx.Observable;
 
 public class PassphraseService {
@@ -12,6 +14,6 @@ public class PassphraseService {
     }
 
     public Observable<String> passphrase() {
-        return Observable.zip(adjectiveService.adjectives(), nounService.nouns(), (adjective, noun) -> adjective + " " +noun);
+        return Observable.zip(Observable.interval(1, TimeUnit.SECONDS), adjectiveService.adjectives().onBackpressureDrop(), nounService.nouns().onBackpressureDrop(), (count, adjective, noun) -> count + ": " + adjective + " " + noun);
     }
 }

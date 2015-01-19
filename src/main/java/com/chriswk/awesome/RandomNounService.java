@@ -5,6 +5,7 @@ import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import rx.Observable;
+import rx.schedulers.Schedulers;
 
 import static java.util.Arrays.asList;
 
@@ -23,8 +24,13 @@ public class RandomNounService {
             "ruby"
     );
     public Observable<String> nouns() {
-        int size = nouns.size();
         Random r = new Random();
-        return Observable.interval(500, TimeUnit.MILLISECONDS).map((counter) -> nouns.get(r.nextInt(size)));
+        int size = nouns.size();
+        return Observable.create((observer) -> {
+            while(!observer.isUnsubscribed()) {
+                observer.onNext(nouns.get(r.nextInt(size)));
+            }
+            observer.onCompleted();
+        });
     }
 }
