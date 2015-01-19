@@ -2,6 +2,7 @@ package com.chriswk.awesome;
 
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 import rx.Observable;
 
@@ -22,10 +23,11 @@ public class RandomAdjectiveService {
             "omnipotent",
             "bearded",
             "ponderous",
-            "crazy");
+            "crazy",
+            "glib");
 
     public Observable<String> adjectives() {
-        return new RandomObservable(adjectives.size()).onBackpressureDrop().map(adjectives::get).onBackpressureDrop();
+        Observable<String> adjective = new RandomObservable(adjectives.size()).map(adjectives::get);
+        return Observable.zip(Observable.interval(500, TimeUnit.MILLISECONDS), adjective.onBackpressureDrop(), (interval, word) -> word);
     }
-
 }

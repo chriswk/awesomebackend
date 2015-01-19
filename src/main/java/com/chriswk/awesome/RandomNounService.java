@@ -1,6 +1,7 @@
 package com.chriswk.awesome;
 
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import rx.Observable;
@@ -22,6 +23,7 @@ public class RandomNounService {
             "ruby"
     );
     public Observable<String> nouns() {
-        return new RandomObservable(nouns.size()).onBackpressureDrop().map(nouns::get).onBackpressureDrop();
+        final Observable<String> randomWord = new RandomObservable(nouns.size()).map((no) -> nouns.get(no));
+        return Observable.zip(Observable.interval(500, TimeUnit.MILLISECONDS), randomWord.onBackpressureDrop(), (counter, word) -> word);
     }
 }

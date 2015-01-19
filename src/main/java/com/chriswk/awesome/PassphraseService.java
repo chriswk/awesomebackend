@@ -12,6 +12,6 @@ public class PassphraseService {
     }
 
     public Observable<String> passphrase() {
-        return Observable.combineLatest(adjectiveService.adjectives(), nounService.nouns(), (adjective, noun) -> adjective + " " +noun);
+        return Observable.zip(adjectiveService.adjectives(), nounService.nouns(), (adjective, noun) -> adjective + " " +noun);
     }
 }
