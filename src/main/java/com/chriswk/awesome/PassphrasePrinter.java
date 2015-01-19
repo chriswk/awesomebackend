@@ -15,15 +15,19 @@ public class PassphrasePrinter {
 
     public static void main(String... args) {
         RandomObservable f = new RandomObservable(10);
+
+        f.take(20).subscribe(System.out::println);
         PassphraseService service = new PassphraseService(new RandomAdjectiveService(), new RandomNounService());
         /*service.passphrase().subscribe(System.out::println);
 */
+/*
         final RandomAdjectiveService adjectiveService = new RandomAdjectiveService();
         adjectiveService.adjectives().take(20).subscribe(ADJECTIVE::debug);
         final RandomNounService nounService = new RandomNounService();
         nounService.nouns().take(20).subscribe(NOUN::debug);
+*/
 
-        final Observable<String> passphrase = adjectiveService.adjectives().zipWith(nounService.nouns(), (adjective, noun) -> adjective + " " + noun);
+        final Observable<String> passphrase = new PassphraseService(new RandomAdjectiveService(), new RandomNounService()).passphrase();
         final Observable<String> from = Observable.from(asList("hello", "world"));
         final Observable<String> to = Observable.from(asList("world", "of hell"));
         final Observable<String> stringObservable = from.zipWith(to, (x, y) -> x + " " + y);

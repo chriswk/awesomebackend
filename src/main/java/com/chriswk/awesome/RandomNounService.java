@@ -23,7 +23,8 @@ public class RandomNounService {
             "ruby"
     );
     public Observable<String> nouns() {
-        final Observable<String> randomWord = new RandomObservable(nouns.size()).map((no) -> nouns.get(no));
-        return Observable.zip(Observable.interval(500, TimeUnit.MILLISECONDS), randomWord.onBackpressureDrop(), (counter, word) -> word);
+        int size = nouns.size();
+        Random r = new Random();
+        return Observable.interval(500, TimeUnit.MILLISECONDS).map((counter) -> nouns.get(r.nextInt(size)));
     }
 }

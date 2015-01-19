@@ -27,7 +27,8 @@ public class RandomAdjectiveService {
             "glib");
 
     public Observable<String> adjectives() {
-        Observable<String> adjective = new RandomObservable(adjectives.size()).map(adjectives::get);
-        return Observable.zip(Observable.interval(500, TimeUnit.MILLISECONDS), adjective.onBackpressureDrop(), (interval, word) -> word);
+        Random r = new Random();
+        final int size = adjectives.size();
+        return Observable.interval(500, TimeUnit.MILLISECONDS).map((counter) -> adjectives.get(r.nextInt(size)));
     }
 }
