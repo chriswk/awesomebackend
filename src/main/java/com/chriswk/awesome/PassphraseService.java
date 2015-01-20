@@ -13,7 +13,7 @@ public class PassphraseService {
         this.nounService = nounService;
     }
 
-    public Observable<String> passphrase() {
-        return Observable.zip(adjectiveService.adjectives().onBackpressureDrop(), nounService.nouns().onBackpressureDrop(), (adjective, noun) -> adjective + " " +noun);
+    public Observable<String> passphrase(int msDelay) {
+        return Observable.zip(Observable.interval(msDelay, TimeUnit.MILLISECONDS), adjectiveService.adjectives(), nounService.nouns(), (count, adjective, noun) -> adjective + " " +noun);
     }
 }

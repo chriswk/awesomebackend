@@ -1,8 +1,6 @@
 package com.chriswk.awesome;
 
 import java.util.List;
-import java.util.Random;
-import java.util.concurrent.TimeUnit;
 
 import rx.Observable;
 import rx.schedulers.Schedulers;
@@ -28,6 +26,6 @@ public class RandomAdjectiveService {
             "glib");
 
     public Observable<String> adjectives() {
-        return new RandomObservable(adjectives.size()).subscribeOn(Schedulers.computation()).map(adjectives::get);
+        return new RandomObservable(adjectives.size()).subscribeOn(Schedulers.computation()).map(adjectives::get).onBackpressureDrop();
     }
 }

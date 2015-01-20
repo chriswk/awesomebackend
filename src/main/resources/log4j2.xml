@@ -18,6 +18,11 @@
             <PatternLayout pattern="[%-5p] [%d{ISO8601}] [%-10t] %m%n"/>
             <Policies><TimeBasedTriggeringPolicy /></Policies>
         </RollingRandomAccessFile>
+        <RollingRandomAccessFile name="PASSPHRASE" fileName="${sys:log.dir}/passphrase.log" append="true" filePattern="${sys:log.dir}/passphrase.log.%d{dd}">
+            <ThresholdFilter level="ALL" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout pattern="[%-5p] [%d{ISO8601}] [%-10t] %m%n"/>
+            <Policies><TimeBasedTriggeringPolicy /></Policies>
+        </RollingRandomAccessFile>
     </appenders>
 
 
@@ -33,9 +38,12 @@
         <logger name="NOUN" level="debug">
             <AppenderRef ref="NOUNF" />
         </logger>
-        <logger name="PASSPHRASE" level="debug" />
+        <logger name="PASSPHRASE" level="debug">
+                <AppenderRef ref="PASSPHRASE" />
+        </logger>
         <logger name="SECOND" level="debug" />
         <logger name="HALF" level="debug" />
+        <logger name="RANDOM" level="debug" />
         <root level="warn">
             <appender-ref ref="STDOUT"/>
         </root>

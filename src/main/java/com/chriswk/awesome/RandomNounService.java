@@ -1,7 +1,6 @@
 package com.chriswk.awesome;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import rx.Observable;
 import rx.schedulers.Schedulers;
@@ -23,6 +22,6 @@ public class RandomNounService {
             "ruby"
     );
     public Observable<String> nouns() {
-        return new RandomObservable(nouns.size()).subscribeOn(Schedulers.computation()).map(nouns::get);
+        return new RandomObservable(nouns.size()).subscribeOn(Schedulers.computation()).map(nouns::get).onBackpressureDrop();
     }
 }
