@@ -5,6 +5,7 @@ import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import rx.Observable;
+import rx.schedulers.Schedulers;
 
 import static java.util.Arrays.asList;
 
@@ -27,6 +28,6 @@ public class RandomAdjectiveService {
             "glib");
 
     public Observable<String> adjectives() {
-        return new RandomObservable(adjectives.size()).map(adjectives::get);
+        return new RandomObservable(adjectives.size()).subscribeOn(Schedulers.computation()).map(adjectives::get);
     }
 }

@@ -9,7 +9,7 @@ public class PassphrasePrinter {
     private static final Logger NOUN = LogManager.getLogger("NOUN");
     private static final Logger PASSPHRASE = LogManager.getLogger("PASSPHRASE");
 
-    public static void main(String... args) {
+    public static void main(String... args) throws InterruptedException {
         RandomObservable f = new RandomObservable(10);
 
         f.take(20).subscribe(System.out::println, System.err::println, () -> System.out.println("Completed"));
@@ -21,5 +21,6 @@ public class PassphrasePrinter {
 
         final Observable<String> passphrase = new PassphraseService(new RandomAdjectiveService(), new RandomNounService()).passphrase();
         passphrase.take(20).subscribe(PASSPHRASE::debug, PASSPHRASE::error, () -> PASSPHRASE.debug("Completed"));
+        Thread.sleep(20000);
     }
 }
