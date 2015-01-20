@@ -27,13 +27,6 @@ public class RandomAdjectiveService {
             "glib");
 
     public Observable<String> adjectives() {
-        Random r = new Random();
-        final int size = adjectives.size();
-        return Observable.create((observer) -> {
-            while(!observer.isUnsubscribed()) {
-                observer.onNext(adjectives.get(r.nextInt(size)));
-            }
-            observer.onCompleted();
-        });
+        return new RandomObservable(adjectives.size()).map(adjectives::get);
     }
 }

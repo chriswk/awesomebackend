@@ -20,6 +20,6 @@ public class PassphrasePrinter {
         nounService.nouns().take(20).subscribe(NOUN::debug, NOUN::error, () -> NOUN.debug("Completed"));
 
         final Observable<String> passphrase = new PassphraseService(new RandomAdjectiveService(), new RandomNounService()).passphrase();
-        passphrase.take(10).subscribe(PASSPHRASE::debug, PASSPHRASE::error, () -> PASSPHRASE.debug("Completed"));
+        passphrase.take(20).subscribe(PASSPHRASE::debug, PASSPHRASE::error, () -> PASSPHRASE.debug("Completed"));
     }
 }
