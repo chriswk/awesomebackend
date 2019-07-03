@@ -2,7 +2,7 @@ package com.chriswk.awesome;
 
 import java.util.concurrent.TimeUnit;
 
-import rx.Observable;
+import io.reactivex.Flowable;
 
 public class PassphraseService {
     RandomAdjectiveService adjectiveService;
@@ -13,7 +13,8 @@ public class PassphraseService {
         this.nounService = nounService;
     }
 
-    public Observable<String> passphrase(int msDelay) {
-        return Observable.zip(Observable.interval(msDelay, TimeUnit.MILLISECONDS), adjectiveService.adjectives(), nounService.nouns(), (count, adjective, noun) -> adjective + " " +noun);
+    public Flowable<String> passphrase(int msDelay) {
+        return Flowable.zip(Flowable.interval(msDelay, TimeUnit.MILLISECONDS), adjectiveService.adjectives(),
+                nounService.nouns(), (count, adjective, noun) -> adjective + " " + noun);
     }
 }

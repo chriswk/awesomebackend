@@ -2,26 +2,15 @@ package com.chriswk.awesome;
 
 import java.util.List;
 
-import rx.Observable;
-import rx.schedulers.Schedulers;
-
-import static java.util.Arrays.asList;
+import io.reactivex.Flowable;
+import io.reactivex.schedulers.Schedulers;
 
 public class RandomNounService {
-    private final List<String> nouns = asList(
-            "book",
-            "elevator",
-            "programmer",
-            "president",
-            "principal",
-            "teacher",
-            "intern",
-            "footballer",
-            "computer",
-            "pearl",
-            "ruby"
-    );
-    public Observable<String> nouns() {
-        return new RandomObservable(nouns.size()).subscribeOn(Schedulers.computation()).map(nouns::get).onBackpressureDrop();
+    private final List<String> nouns = List.of("book", "elevator", "programmer", "president", "principal", "teacher",
+            "intern", "footballer", "computer", "pearl", "ruby");
+
+    public Flowable<String> nouns() {
+        return RandomFlowable.randomInt(nouns.size()).subscribeOn(Schedulers.computation()).map(nouns::get)
+                .onBackpressureDrop();
     }
 }
