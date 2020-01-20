@@ -14,10 +14,10 @@ targetCompatibility = "11"
 // In this section you declare the dependencies for your production and test code
 dependencies {
     compile "io.reactivex.rxjava3:rxjava:3.0.0-RC8"
-    compile "org.apache.logging.log4j:log4j-api:2.12.1"
+    compile "org.apache.logging.log4j:log4j-api:2.13.0"
     compile "org.apache.logging.log4j:log4j-core:2.13.0"
     testCompile "org.junit.jupiter:junit-jupiter-api:5.5.2"
-    testCompile "org.junit.jupiter:junit-jupiter-engine:5.5.1"
+    testCompile "org.junit.jupiter:junit-jupiter-engine:5.5.2"
 }
 
 test {
